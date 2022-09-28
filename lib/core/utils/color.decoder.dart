@@ -58,9 +58,9 @@ Color mixColors(List<Color> colors) {
 
 void colorPrint(Color mix, {String? name}) {
   print('----------------Color $mix ${name ?? ''}---------------------');
-  print("Red     => ${mix.red}");
-  print("GREEN   => ${mix.green}");
-  print("BLUE    => ${mix.blue}");
-  print("Opacity => ${mix.opacity}");
+  print('Red     => ${mix.red}');
+  print('GREEN   => ${mix.green}');
+  print('BLUE    => ${mix.blue}');
+  print('Opacity => ${mix.opacity}');
   // print('------------------------------------------------');
 }

@@ -2,6 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+class HexColor extends Color {
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll('#', '');
+    if (hexColor.length == 6) {
+      hexColor = 'FF$hexColor';
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
+}
+
 extension ColorSum on Color {
   static Color fromHex(String hexString) {
     final buffer = StringBuffer();
@@ -36,19 +48,21 @@ extension ColorSum on Color {
     int b2 = c2.blue;
     var d = sqrt(pow((r2 - r1), 2) + pow((g2 - g1), 2) + pow((b2 - b1), 2));
     double p = d / sqrt(pow((255), 2) + pow((255), 2) + pow((255), 2));
-    return p;
+    p = (1.0 - p);
+    return p * 100;
   }
 
   double match(Color c1) => _match(this, c1);
 
-  void printColor(double d, {String? tag}) => colorPrint(this, name: tag);
+  void printColor({String? tag}) => colorPrint(this, name: tag);
+
+  String toHexString() {
+    return '#${red.toRadixString(16).padLeft(2, '0')}${green.toRadixString(16).padLeft(2, '0')}${blue.toRadixString(16).padLeft(2, '0')}';
+  }
 }
 
 Color mixColors(List<Color> colors) {
   int sumAlpha = 0;
-  // for (int i = 0; i < colors.length; i++) {
-  //   sumAlpha += colors[i].alpha;
-  // }
   int r = 0;
   int g = 0;
   int b = 0;
@@ -71,8 +85,8 @@ Color mixColors(List<Color> colors) {
 
 void colorPrint(Color mix, {String? name}) {
   print('----------------Color $mix ${name ?? ''}---------------------');
-  print("Red     => ${mix.red}");
-  print("GREEN   => ${mix.green}");
-  print("BLUE    => ${mix.blue}");
-  print("Opacity => ${mix.opacity}");
+  print('Red     => ${mix.red}');
+  print('GREEN   => ${mix.green}');
+  print('BLUE    => ${mix.blue}');
+  print('Opacity => ${mix.opacity}');
 }

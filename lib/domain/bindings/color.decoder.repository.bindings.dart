@@ -1,0 +1,19 @@
+import 'package:get/get.dart';
+
+import '../repository/color_repository/color.repository.dart';
+import '../repository/interface/color_repository.interface.dart';
+import '../service/color/color.decode.network.service.dart';
+import '../service/connect.dart';
+
+class ColorDecoderRepositoryBindings {
+  late IColorDecoderRepository _repository;
+
+  IColorDecoderRepository get repository => _repository;
+
+  ColorDecoderRepositoryBindings() {
+    final GetConnect getConnect = Get.find<GetConnect>();
+    final Connect connect = Connect(connect: getConnect);
+    final service = ColorDecoderNetworkService(connect);
+    _repository = ColorDecoderRepository(colorDecoderService: service);
+  }
+}

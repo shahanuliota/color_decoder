@@ -9,28 +9,28 @@ class ConfigEnvironments {
   static const String _currentEnvironments = Environments.DEV;
   static AppConfigData defultConfig = AppConfigData(
     env: Environments.DEV,
-    url: '',
+    url: 'https://trycolors.com/',
     serverUrl: '',
   );
   static final List<AppConfigData> _availableEnvironments = [
     AppConfigData(
       env: Environments.LOCAL,
-      url: '',
+      url: 'https://trycolors.com/',
       serverUrl: '',
     ),
     AppConfigData(
       env: Environments.DEV,
-      url: '',
+      url: 'https://trycolors.com/',
       serverUrl: '',
     ),
     AppConfigData(
       env: Environments.QAS,
-      url: '',
+      url: 'https://trycolors.com/',
       serverUrl: '',
     ),
     AppConfigData(
       env: Environments.PRODUCTION,
-      url: '',
+      url: 'https://trycolors.com/',
       serverUrl: '',
     ),
   ];
