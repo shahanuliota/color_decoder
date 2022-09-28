@@ -14,7 +14,10 @@ class ColorDecoderRepository extends IColorDecoderRepository {
   @override
   Future<ColorDataModel> getColorDecoder(ColorDecoderDto dto) async {
     try {
+      print('repository: called');
       ColorDecoderResponse res = await _colorDecoderService.getColorDecoder(dto);
+
+      print('repository: $res');
       ColorDataModel model = ColorDataModel();
       res.structure.forEach(
         (key, value) {},

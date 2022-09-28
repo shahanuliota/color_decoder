@@ -19,14 +19,18 @@ class ColorDecoderNetworkService extends IColorDecoderService {
   @override
   Future<ColorDecoderResponse> getColorDecoder(ColorDecoderDto dto) async {
     try {
+      print(dto.toString());
+      print('befoure called');
       final response = await _connect.post<ColorDecoderResponse>(
         '$_prefix/mix',
         dto.toString(),
         headers: {
           'Accept': 'application/json',
-          // 'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
+          // 'User-Agent': 'PostmanRuntime/7.29.2',
         },
         decoder: (value) {
+          print('value => $value');
           return ColorDecoderResponse.fromJson(
             value is String ? json.decode(value) : value as Map,
           );
@@ -56,6 +60,8 @@ class ColorDecoderNetworkService extends IColorDecoderService {
         }
       }
     } catch (e) {
+      print('error in service');
+      print(e.toString());
       rethrow;
     }
   }

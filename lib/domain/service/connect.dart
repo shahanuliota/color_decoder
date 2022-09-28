@@ -46,9 +46,9 @@ class Connect implements IHttpConnect {
       final response =
           await _connect.post(url, body, decoder: decoder, headers: headers, query: query);
 
-      debugPrint(response.hasError.toString());
-      response.printError();
-      debugPrint(response.status.code.toString());
+      // debugPrint(response.bodyString.toString());
+      // response.printError();
+      // debugPrint(response.status.code.toString());
       final obj = Response(
         statusCode: response.statusCode!,
         payload: response.body,

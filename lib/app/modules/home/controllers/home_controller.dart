@@ -1,10 +1,19 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/extensions/color.decoder.dart';
+import '../../../../domain/repository/interface/color_repository.interface.dart';
+import '../../../../domain/service/color/dto/color.decoder.dto.dart';
+import '../../../data/color.data.model.dart';
 
 class HomeController extends GetxController {
+  final IColorDecoderRepository _colorDecoderRepository;
+
+  HomeController({required IColorDecoderRepository colorDecoderRepository})
+      : _colorDecoderRepository = colorDecoderRepository;
+
   @override
   void onInit() {
     initColor();
@@ -24,15 +33,44 @@ class HomeController extends GetxController {
     ];
   }
 
-  Color? givenColor;
-
   setGivenColor(String color) {
     try {
       givenColor = HexColor(color);
       update(['given_color']);
+      decodeColor();
     } catch (_) {}
   }
 
+  Future<void> decodeColor() async {
+    try {
+      if (givenColor != null) {
+        List<Color> list = baseColors.map((e) => e.baseColor).toList();
+        ColorDecoderDto dto = ColorDecoderDto(
+          structure: list,
+          hex: givenColor!,
+        );
+
+        // Dio dio = Dio();
+        // var res = await dio.post(
+        //   'https://trycolors.com/api/mix',
+        //   data: dto.toString(),
+        // );
+        //
+        // print(res.data);
+
+        ColorDataModel colorDataModel = await _colorDecoderRepository.getColorDecoder(dto);
+        decodedColor = colorDataModel;
+        update(['match_color']);
+      }
+    } catch (e, t) {
+      debugPrint('---------');
+      debugPrint(e.toString());
+      debugPrint(t.toString());
+    }
+  }
+
+  ColorDataModel? decodedColor;
+  Color? givenColor;
   final Color redCool = const Color(0xff890041);
   final Color yellowCool = const Color(0xffFFCE51);
   final Color blue = const Color(0xff00224C);

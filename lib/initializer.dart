@@ -23,6 +23,7 @@ class Initializer {
     connect.baseUrl = env.url;
     connect.timeout = const Duration(seconds: 60);
     connect.httpClient.maxAuthRetries = 0;
+    connect.httpClient.addRequestModifier(RequestInterceptor.onesignalAuthModifier);
     connect.httpClient.addResponseModifier(RequestInterceptor.responseLogger);
     Get.put(connect);
   }

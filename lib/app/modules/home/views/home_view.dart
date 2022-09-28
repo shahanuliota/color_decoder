@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/extensions/clickable_extensions.dart';
 import '../../../../core/extensions/color.decoder.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../componenet/color.box.view.dart';
@@ -104,7 +106,7 @@ class HomeView extends GetView<HomeController> {
                               ? null
                               : () {
                                   controller.setGivenColor(colorInputController.text);
-                                  print('submit');
+                                  // print('submit');
                                 },
                         );
                       },
@@ -137,6 +139,61 @@ class HomeView extends GetView<HomeController> {
                         );
                       },
                     ),
+                    20.verticalSpace,
+                    GetBuilder<HomeController>(
+                      id: 'match_color',
+                      builder: (logic) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            if (controller.decodedColor != null)
+                              Text(
+                                'Percentage: ${controller.decodedColor!.matchPercentageWith(controller.givenColor!)}',
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  //color: controller.givenColor,
+                                ),
+                              ),
+                            20.verticalSpace,
+                            if (controller.decodedColor != null)
+                              Text(
+                                'Match color: ${controller.decodedColor!.mixColor.toHexString().toUpperCase()}',
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  //color: controller.givenColor,
+                                ),
+                              ),
+                            20.verticalSpace,
+                            if (controller.decodedColor != null)
+                              ColorBox(
+                                color: controller.decodedColor!.mixColor,
+                                tag: 'Given Color',
+                                width: min(Get.width, 1000),
+                              ),
+                            20.verticalSpace,
+                            if (controller.decodedColor != null)
+                              Wrap(
+                                spacing: 10,
+                                runSpacing: 10,
+                                children: [
+                                  for (String key
+                                      in (controller.decodedColor?.colorCounterMap.keys ??
+                                          <String>[]))
+                                    CircularColorBox(
+                                      color: HexColor(key),
+                                      count: controller.decodedColor!
+                                          .colorCnt(HexColor(key))
+                                          .toString(),
+                                    ),
+                                ],
+                              )
+                          ],
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -144,6 +201,50 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CircularColorBox extends StatelessWidget {
+  const CircularColorBox({
+    Key? key,
+    required this.color,
+    required this.count,
+    this.width = 200.0,
+    this.height = 200.0,
+  }) : super(key: key);
+
+  final Color color;
+  final String count;
+  final double width;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            count,
+            style: TextStyle(
+              color: color.computeLuminance() > 0.7 ? Colors.black : Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    ).clickable(
+      () {
+        Clipboard.setData(
+          ClipboardData(text: color.toHexString()),
+        );
+      },
     );
   }
 }

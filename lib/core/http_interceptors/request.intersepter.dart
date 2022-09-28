@@ -5,6 +5,14 @@ import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 
 class RequestInterceptor {
+  static Future<Request<T>> onesignalAuthModifier<T>(Request<T> request) async {
+    print(request.url);
+    print(request.method);
+    print(request.headers);
+
+    return request;
+  }
+
   static Future<Response<T>> responseLogger<T>(Request request, response) async {
     debugPrint('request:=> ${request.url}');
     debugPrint('request:=> ${response.statusCode}');
