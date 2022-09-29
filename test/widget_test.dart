@@ -104,4 +104,24 @@ void main() {
   //
   //   expect(true, true);
   // });
+
+  test('colors optimal solution', () {
+    Color redCool = const Color(0xffc40d20);
+    Color yellowCool = const Color(0xffffcc00);
+    Color blue = const Color(0xff00224c);
+    Color white = const Color(0xffffffff);
+    Color black = const Color(0xff21211a);
+
+    List<Color> mixerList = [redCool, yellowCool, blue, white, black];
+  });
 }
+
+List getAllSubsets(List l) => l.fold<List>([[]], (subLists, element) {
+      return subLists
+          .map((subList) => [
+                subList,
+                subList + [element]
+              ])
+          .expand((element) => element)
+          .toList();
+    });

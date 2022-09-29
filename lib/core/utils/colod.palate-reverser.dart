@@ -260,7 +260,7 @@ class _ColorPalateReverse {
           ...tempBestMixerList
         ]; //compareAndReturnBestList(colorsList, tempBestMixerList);
 
-        if (_sameStapeCount < 200) {
+        if (_sameStapeCount < 150) {
           _sameStapeCount++;
           colorsList = [...returnList];
         } else {
