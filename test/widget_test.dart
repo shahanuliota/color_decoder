@@ -44,7 +44,8 @@ void main() {
     //Color targetColor = const Color(0xff886F67);
     //Color targetColor = const Color(0xff595150);
     // Color targetColor = const Color(0xffE53F2D);
-    Color targetColor = const Color(0xff9A281B);
+    // Color targetColor = const Color(0xff9A281B);
+    Color targetColor = const Color(0xff8E2C3D);
     //Color targetColor = const Color(0xff890041);
 
     List<Color> baseList = [
