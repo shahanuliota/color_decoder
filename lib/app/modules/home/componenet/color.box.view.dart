@@ -31,19 +31,19 @@ class ColorBox extends StatelessWidget {
           Text(
             tag,
             style: TextStyle(
-              color: color.computeLuminance() > 0.7 ? Colors.black : Colors.white,
+              color: color.computeLuminance() > 0.6 ? Colors.black : Colors.white,
             ),
           ),
           Text(
             color.toHexString().toUpperCase(),
             style: TextStyle(
-              color: color.computeLuminance() > 0.7 ? Colors.black : Colors.white,
+              color: color.computeLuminance() > 0.6 ? Colors.black : Colors.white,
             ),
           ),
           Text(
             color.toRGBString().toUpperCase(),
             style: TextStyle(
-              color: color.computeLuminance() > 0.7 ? Colors.black : Colors.white,
+              color: color.computeLuminance() > 0.6 ? Colors.black : Colors.white,
             ),
           ),
         ],

@@ -1,6 +1,6 @@
 {
-    "name": "color_decoder",
-    "short_name": "color_decoder",
+    "name": "notification_admin_panel",
+    "short_name": "notification_admin_panel",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -240,7 +240,7 @@ class CircularColorBox extends StatelessWidget {
               Text(
                 count,
                 style: TextStyle(
-                  color: color.computeLuminance() > 0.7 ? Colors.black : Colors.white,
+                  color: color.computeLuminance() > 0.6 ? Colors.black : Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
