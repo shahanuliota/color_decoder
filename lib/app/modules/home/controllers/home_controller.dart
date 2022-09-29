@@ -71,11 +71,11 @@ class HomeController extends GetxController {
 
   ColorDataModel? decodedColor;
   Color? givenColor;
-  final Color redCool = const Color(0xff890041);
-  final Color yellowCool = const Color(0xffFFCE51);
-  final Color blue = const Color(0xff00224C);
+  final Color redCool = const Color(0xffc40d20);
+  final Color yellowCool = const Color(0xffffcc00);
+  final Color blue = const Color(0xff00224c);
   final Color white = const Color(0xffFFFFFF);
-  final Color black = const Color(0xff21211A);
+  final Color black = const Color(0xff21211a);
   List<ColorBase> baseColors = <ColorBase>[];
 }
 
