@@ -26,6 +26,16 @@ class ColorDataModel {
     return _colorCounter[c.toHexString()] ?? 0;
   }
 
+  double getPercent(Color c) {
+    try {
+      double count = (colorCounterMap[c.toHexString()] ?? 0).toDouble();
+
+      return (count * 100) / _colors.length;
+    } catch (e, t) {
+      return 0.0;
+    }
+  }
+
   Color get mixColor => mixColors(_colors);
 
   double matchPercentageWith(Color c) => mixColor.match(c);

@@ -40,6 +40,12 @@ class ColorBox extends StatelessWidget {
               color: color.computeLuminance() > 0.7 ? Colors.black : Colors.white,
             ),
           ),
+          Text(
+            color.toRGBString().toUpperCase(),
+            style: TextStyle(
+              color: color.computeLuminance() > 0.7 ? Colors.black : Colors.white,
+            ),
+          ),
         ],
       ),
     ).clickable(

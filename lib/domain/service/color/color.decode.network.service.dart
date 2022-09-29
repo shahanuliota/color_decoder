@@ -26,8 +26,6 @@ class ColorDecoderNetworkService extends IColorDecoderService {
         dto.toString(),
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          // 'User-Agent': 'PostmanRuntime/7.29.2',
         },
         decoder: (value) {
           print('value => $value');

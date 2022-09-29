@@ -121,7 +121,7 @@ class HomeView extends GetView<HomeController> {
                           children: [
                             if (controller.givenColor != null)
                               Text(
-                                'Given color: ${controller.givenColor!.toHexString().toUpperCase()}',
+                                'Given color: ${controller.givenColor!.toHexString().toUpperCase()}   ${controller.givenColor!.toRGBString().toUpperCase()}',
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -159,7 +159,7 @@ class HomeView extends GetView<HomeController> {
                             20.verticalSpace,
                             if (controller.decodedColor != null)
                               Text(
-                                'Match color: ${controller.decodedColor!.mixColor.toHexString().toUpperCase()}',
+                                'Match color: ${controller.decodedColor!.mixColor.toHexString().toUpperCase()}  ${controller.decodedColor!.mixColor.toRGBString().toUpperCase()}',
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -170,7 +170,7 @@ class HomeView extends GetView<HomeController> {
                             if (controller.decodedColor != null)
                               ColorBox(
                                 color: controller.decodedColor!.mixColor,
-                                tag: 'Given Color',
+                                tag: 'Match Color',
                                 width: min(Get.width, 1000),
                               ),
                             20.verticalSpace,
@@ -186,6 +186,10 @@ class HomeView extends GetView<HomeController> {
                                       color: HexColor(key),
                                       count: controller.decodedColor!
                                           .colorCnt(HexColor(key))
+                                          .toString(),
+                                      percentage: controller.decodedColor!
+                                          .getPercent(HexColor(key))
+                                          .toStringAsFixed(2)
                                           .toString(),
                                     ),
                                 ],
@@ -210,41 +214,51 @@ class CircularColorBox extends StatelessWidget {
     Key? key,
     required this.color,
     required this.count,
+    required this.percentage,
     this.width = 200.0,
     this.height = 200.0,
   }) : super(key: key);
 
   final Color color;
   final String count;
+  final String percentage;
   final double width;
   final double height;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            count,
-            style: TextStyle(
-              color: color.computeLuminance() > 0.7 ? Colors.black : Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+    return Column(
+      children: [
+        Container(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                count,
+                style: TextStyle(
+                  color: color.computeLuminance() > 0.7 ? Colors.black : Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ).clickable(
-      () {
-        Clipboard.setData(
-          ClipboardData(text: color.toHexString()),
-        );
-      },
+        ).clickable(
+          () {
+            Clipboard.setData(
+              ClipboardData(text: color.toHexString()),
+            );
+          },
+        ),
+        10.verticalSpace,
+        Text(
+          '$percentage %',
+        ),
+      ],
     );
   }
 }

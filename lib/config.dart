@@ -15,7 +15,7 @@ class ConfigEnvironments {
   static final List<AppConfigData> _availableEnvironments = [
     AppConfigData(
       env: Environments.LOCAL,
-      url: 'https://trycolors.com/',
+      url: 'http://localhost:3000/',
       serverUrl: '',
     ),
     AppConfigData(
