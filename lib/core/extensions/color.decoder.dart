@@ -11,6 +11,9 @@ class HexColor extends Color {
     return int.parse(hexColor, radix: 16);
   }
 
+  @override
+  Type get runtimeType => Color;
+
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
 

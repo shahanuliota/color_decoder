@@ -34,18 +34,20 @@ void main() {
   });
 
   test('reverse from palate', () {
-    Color redCool = const Color(0xff890041);
-    Color yellowCool = const Color(0xffFFCE51);
-    Color blue = const Color(0xff00224C);
-    Color white = const Color(0xffFFFFFF);
-    Color black = const Color(0xff21211A);
+    Color redCool = const Color(0xffc40d20);
+    Color yellowCool = const Color(0xffffcc00);
+    Color blue = const Color(0xff00224c);
+    Color white = const Color(0xffffffff);
+    Color black = const Color(0xff21211a);
 
     //Color targetColor = const Color(0xff83504A);
     //Color targetColor = const Color(0xff886F67);
-    //Color targetColor = const Color(0xff595150);
+    // Color targetColor = const Color(0xff595150);
     // Color targetColor = const Color(0xffE53F2D);
+    // Color targetColor = const Color(0xff888459);
+    Color targetColor = const Color(0xffE4D30F);
     // Color targetColor = const Color(0xff9A281B);
-    Color targetColor = const Color(0xff8E2C3D);
+    // Color targetColor = const Color(0xff8E2C3D);
     //Color targetColor = const Color(0xff890041);
 
     List<Color> baseList = [
