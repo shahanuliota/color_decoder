@@ -133,16 +133,18 @@ class _ColorPalateReverse {
 
   List<Color> reverse(List<Color> colorsList, bool withDelete) {
     List<Color> rec = _reverse(colorsList, withDelete);
-    // _bestList = [
-    //   ...compareAndReturnBestList([...bestList], rec)
-    // ];
-    // return _bestList;
 
     Color mixer = mixColors([...rec]);
     double temp = mixer.match(targetColor);
 
-    Color mixer2 = mixColors([..._bestList]);
-    double temp2 = mixer2.match(targetColor);
+    // print('best list ${_bestList.length}  withDelete ${withDelete}');
+
+    double temp2 = 0.0;
+    if (_bestList.isNotEmpty) {
+      Color mixer2 = mixColors([..._bestList]);
+      temp2 = mixer2.match(targetColor);
+    }
+
     List<Color> l = temp > temp2 ? rec : bestList;
     _setBestMatch(l);
 
@@ -217,6 +219,7 @@ class _ColorPalateReverse {
       BestMatch bestMatch = _bestMatchFromList(baseColors);
       colorsList = [bestMatch.color];
       _globalMaxMatch = bestMatch.match;
+      _setBestMatch(colorsList);
     } else {
       List<Color> tempBestMixerList = <Color>[];
       // for (int i = 0; i < baseColors.length; i++) {
@@ -253,15 +256,19 @@ class _ColorPalateReverse {
         }
       }
 
+      //print('_globalMaxMatch: $_globalMaxMatch : maxMatch: $maxMatch');
       if (maxMatch > _globalMaxMatch) {
         _globalMaxMatch = maxMatch;
         colorsList = [...compareAndReturnBestList(colorsList, tempBestMixerList)];
         _setBestMatch(colorsList);
+        if (_globalMaxMatch == 94.06) {
+          print('_totalStepTook $_totalStepTook');
+        }
       } else {
         List<Color> returnList = [...tempBestMixerList]; //
         // compareAndReturnBestList(colorsList, tempBestMixerList);
 
-        if (_sameStapeCount < 250) {
+        if (_sameStapeCount < 100) {
           _sameStapeCount++;
           colorsList = [...returnList];
         } else {
