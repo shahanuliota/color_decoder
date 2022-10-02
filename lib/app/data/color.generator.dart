@@ -7,6 +7,8 @@ class ColorBase {
   ColorBase({required this.tag, required this.baseColor});
 }
 
+enum ColorType { cool, warm }
+
 class BaseColorGenerator {
   /// cool colors
   final Color redCool = const Color(0xff890041);
@@ -43,5 +45,25 @@ class BaseColorGenerator {
       ColorBase(baseColor: blackWarm, tag: 'Black'),
     ];
     return warmColors;
+  }
+
+  Color getRed(ColorType type) {
+    return type == ColorType.cool ? redCool : redWarm;
+  }
+
+  Color getYellow(ColorType type) {
+    return type == ColorType.cool ? yellowCool : yellowWarm;
+  }
+
+  Color getBlue(ColorType type) {
+    return type == ColorType.cool ? blueCool : blueCool;
+  }
+
+  Color getWhite(ColorType type) {
+    return type == ColorType.cool ? whiteCool : whiteWarm;
+  }
+
+  Color getBlack(ColorType type) {
+    return type == ColorType.cool ? blackCool : blackWarm;
   }
 }

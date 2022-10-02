@@ -21,11 +21,8 @@ class UploadColorsController extends GetxController {
       DateTime start = DateTime.now();
       print(start.toString());
 
-      for (int i = 272; i < colors.length; i++) {
+      for (int i = 0; i < colors.length; i++) {
         Color color = colors[i];
-        print(color.toHexString());
-
-        // if (i > 100) continue;
         print(color.toHexString() + ' ' + i.toString());
         ColorDecoderDto dto = ColorDecoderDto(
           structure: _colorGenerator.getCoolColors().map((e) => e.baseColor).toList(),
@@ -33,6 +30,11 @@ class UploadColorsController extends GetxController {
         );
         ColorDataModel data = await _colorDecoderRepository.getColorDecoder(dto);
         colorsDataModel.add(ColorPalletMixer(targetColor: color, result: data));
+        update(['table']);
+        if (i % 100 == 0) {
+          update(['table']);
+          await 50.milliseconds.delay();
+        }
       }
 
       DateTime end = DateTime.now();
@@ -48,12 +50,20 @@ class UploadColorsController extends GetxController {
     }
   }
 
-  List<ColorPalletMixer> colorsDataModel = <ColorPalletMixer>[];
+  List<ColorPalletMixer> colorsDataModel = <ColorPalletMixer>[].obs;
 }
 
 class ColorPalletMixer {
   final Color targetColor;
-
   final ColorDataModel result;
+
   ColorPalletMixer({required this.targetColor, required this.result});
+
+  int colorCount(Color c) {
+    return result.colorCnt(c);
+  }
+
+  double matchWithTarget(Color c) {
+    return result.matchPercentageWith(c);
+  }
 }
