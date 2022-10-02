@@ -31,7 +31,7 @@ class ColorDataModel {
       double count = (colorCounterMap[c.toHexString()] ?? 0).toDouble();
 
       return (count * 100) / _colors.length;
-    } catch (e, t) {
+    } catch (e) {
       return 0.0;
     }
   }

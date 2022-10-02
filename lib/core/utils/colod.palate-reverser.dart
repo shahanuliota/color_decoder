@@ -48,6 +48,8 @@ class ColorPalateReverse {
 
     List<Color> res = <Color>[];
 
+    print('tempWithDelete $tempWithDelete : temp1 $temp1  ${temp1 > tempWithDelete}');
+
     if (tempWithDelete == temp1) {
       _totalStepTook = list.length < listWithDelete.length
           ? _reverser.totalStepTook
@@ -256,15 +258,15 @@ class _ColorPalateReverse {
         colorsList = [...compareAndReturnBestList(colorsList, tempBestMixerList)];
         _setBestMatch(colorsList);
       } else {
-        List<Color> returnList = [
-          ...tempBestMixerList
-        ]; //compareAndReturnBestList(colorsList, tempBestMixerList);
+        List<Color> returnList = [...tempBestMixerList]; //
+        // compareAndReturnBestList(colorsList, tempBestMixerList);
 
-        if (_sameStapeCount < 150) {
+        if (_sameStapeCount < 250) {
           _sameStapeCount++;
           colorsList = [...returnList];
         } else {
-          return [...returnList];
+          return compareAndReturnBestList(colorsList, tempBestMixerList);
+          // return [...returnList];
         }
       }
     }

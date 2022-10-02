@@ -73,7 +73,7 @@ class Connect implements IHttpConnect {
       decoder: decoder,
       headers: headers,
     );
-    print("bodyString => ");
+    print('bodyString => ');
     print(response.bodyString);
     print(response.statusText);
     print(response.statusCode);

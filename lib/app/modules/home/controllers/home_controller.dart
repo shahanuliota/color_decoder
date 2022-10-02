@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -24,16 +22,26 @@ class HomeController extends GetxController {
   void onClose() {}
 
   void initColor() {
-    baseColors = <ColorBase>[
+    coolColors = [
       ColorBase(baseColor: redCool, tag: 'Red'),
-      ColorBase(baseColor: yellowCool, tag: 'Yellow-Cool'),
-      ColorBase(baseColor: blue, tag: 'Blue'),
-      ColorBase(baseColor: white, tag: 'White'),
-      ColorBase(baseColor: black, tag: 'Black'),
+      ColorBase(baseColor: yellowCool, tag: 'Yellow'),
+      ColorBase(baseColor: blueCool, tag: 'Blue'),
+      ColorBase(baseColor: whiteCool, tag: 'White'),
+      ColorBase(baseColor: blackCool, tag: 'Black'),
     ];
+
+    warmColors = [
+      ColorBase(baseColor: redWarm, tag: 'Red'),
+      ColorBase(baseColor: yellowWarm, tag: 'Yellow'),
+      ColorBase(baseColor: blueWarm, tag: 'Blue'),
+      ColorBase(baseColor: whiteWarm, tag: 'White'),
+      ColorBase(baseColor: blackWarm, tag: 'Black'),
+    ];
+
+    baseColors = coolColors;
   }
 
-  setGivenColor(String color) {
+  void setGivenColor(String color) {
     try {
       givenColor = HexColor(color);
       update(['given_color']);
@@ -49,15 +57,6 @@ class HomeController extends GetxController {
           structure: list,
           hex: givenColor!,
         );
-
-        // Dio dio = Dio();
-        // var res = await dio.post(
-        //   'https://trycolors.com/api/mix',
-        //   data: dto.toString(),
-        // );
-        //
-        // print(res.data);
-
         ColorDataModel colorDataModel = await _colorDecoderRepository.getColorDecoder(dto);
         decodedColor = colorDataModel;
         update(['match_color']);
@@ -69,14 +68,36 @@ class HomeController extends GetxController {
     }
   }
 
+  void switchBaseColors(int i) {
+    if (i == 0) {
+      baseColors = coolColors;
+    } else {
+      baseColors = warmColors;
+    }
+
+    update();
+  }
+
   ColorDataModel? decodedColor;
   Color? givenColor;
-  final Color redCool = const Color(0xffc40d20);
-  final Color yellowCool = const Color(0xffffcc00);
-  final Color blue = const Color(0xff00224c);
-  final Color white = const Color(0xffFFFFFF);
-  final Color black = const Color(0xff21211a);
+
+  /// cool colors
+  final Color redCool = const Color(0xff890041);
+  final Color yellowCool = const Color(0xffFFCE51);
+  final Color blueCool = const Color(0xff00224C);
+  final Color whiteCool = const Color(0xffFFFFFF);
+  final Color blackCool = const Color(0xff21211A);
+
+  /// warm colors
+  final Color redWarm = const Color(0xffc40d20);
+  final Color yellowWarm = const Color(0xffFFCC00);
+  final Color blueWarm = const Color(0xff00224C);
+  final Color whiteWarm = const Color(0xffFFFFFF);
+  final Color blackWarm = const Color(0xff21211a);
+
   List<ColorBase> baseColors = <ColorBase>[];
+  List<ColorBase> coolColors = <ColorBase>[];
+  List<ColorBase> warmColors = <ColorBase>[];
 }
 
 class ColorBase {
