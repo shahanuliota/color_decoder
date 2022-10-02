@@ -81,6 +81,7 @@ Color mixColors(List<Color> colors) {
     o += colors[i].opacity;
     sumAlpha += colors[i].alpha;
   }
+
   r = (r / sumAlpha).roundToDouble().toInt();
   g = (g / sumAlpha).roundToDouble().toInt();
   b = (b / sumAlpha).roundToDouble().toInt();

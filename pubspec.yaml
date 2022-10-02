@@ -19,6 +19,7 @@ dependencies:
   file_picker: ^5.2.0+1
   path_provider: ^2.0.5
   spreadsheet_decoder: ^2.0.0
+  syncfusion_flutter_datagrid_export: ^20.3.47-beta
 
 
 

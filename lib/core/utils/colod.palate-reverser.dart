@@ -48,7 +48,7 @@ class ColorPalateReverse {
 
     List<Color> res = <Color>[];
 
-    print('tempWithDelete $tempWithDelete : temp1 $temp1  ${temp1 > tempWithDelete}');
+    //print('tempWithDelete $tempWithDelete : temp1 $temp1  ${temp1 > tempWithDelete}');
 
     if (tempWithDelete == temp1) {
       _totalStepTook = list.length < listWithDelete.length

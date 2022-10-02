@@ -26,6 +26,7 @@ class ExcelToColors {
 
       if (file != null) {
         final List<int> bytes = file.files.first.bytes ?? [];
+        print(bytes.length);
         return bytes;
       }
       throw new Exception('file not found');
@@ -38,6 +39,7 @@ class ExcelToColors {
     try {
       var target = 'All Hex codes';
       var decoder = SpreadsheetDecoder.decodeBytes(bytes, update: true);
+      print(decoder.tables);
       SpreadsheetTable table = decoder.tables[target]!;
       return table.rows;
     } catch (e) {
@@ -59,7 +61,7 @@ class ExcelToColors {
           if (GetUtils.isHexadecimal(xString) == true &&
               (xString).length == 7 &&
               xString.startsWith('#')) {
-            print(xString);
+            // print(xString);
             Color color = HexColor(xString);
             colors.add(color);
           }
