@@ -14,6 +14,7 @@ import '../../../../core/helper/save_file_mobile.dart'
     if (dart.library.html) '../../../../core/helper/save_file_web.dart' as helper;
 import '../../../../core/utils/excle_to_color_list.dart';
 import '../../../data/color.generator.dart';
+import '../../home/componenet/submit.button.view.dart';
 import '../controllers/upload_colors_controller.dart';
 
 class UploadColorsView extends GetView<UploadColorsController> {
@@ -70,33 +71,19 @@ class UploadColorsView extends GetView<UploadColorsController> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 100,
-                      width: 200,
-                      child: Center(
-                        child: ElevatedButton(
-                          child: Text('EXPORT csv'.toUpperCase(), style: TextStyle(fontSize: 14)),
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      side: BorderSide(color: Colors.red)))),
-                          onPressed: () async {
-                            try {
-                              _exportDataGridToExcel();
-                            } catch (e, t) {
-                              print(e.toString());
-                              print(t.toString());
-                            }
-                          },
-                        ),
-                      ),
-                    ),
+                    Obx(() {
+                      return SubmitButton(
+                        focusNode: FocusNode(),
+                        title: 'EXPORT csv'.toUpperCase(),
+                        onTap: controller.isCompletedUpload.value == false
+                            ? null
+                            : _exportDataGridToExcel,
+                      );
+                    }),
                   ],
                 ),
               ),
+              20.verticalSpace,
               Expanded(
                 child: Center(
                   child: SizedBox(
@@ -263,46 +250,49 @@ class ColorDataSource extends DataGridSource {
   int id = 0;
 
   @override
-  List<DataGridRow> get rows => colors
-      .map<DataGridRow>(
-        (dataRow) => DataGridRow(
-          cells: [
-            DataGridCell<String>(
-              columnName: 'ID',
-              value: (id++).toString(),
-            ),
-            DataGridCell<String>(
-              columnName: 'HEX',
-              value: dataRow.targetColor.toHexString(),
-            ),
-            DataGridCell<String>(
-              columnName: 'RED',
-              value: dataRow.colorCount(baseColorGenerator.getRed(type)).toString(),
-            ),
-            DataGridCell<String>(
-              columnName: 'YELLOW',
-              value: dataRow.colorCount(baseColorGenerator.getYellow(type)).toString(),
-            ),
-            DataGridCell<String>(
-              columnName: 'BLUE',
-              value: dataRow.colorCount(baseColorGenerator.getBlue(type)).toString(),
-            ),
-            DataGridCell<String>(
-              columnName: 'WHITE',
-              value: dataRow.colorCount(baseColorGenerator.getWhite(type)).toString(),
-            ),
-            DataGridCell<String>(
-              columnName: 'BLACK',
-              value: dataRow.colorCount(baseColorGenerator.getBlack(type)).toString(),
-            ),
-            DataGridCell<String>(
-              columnName: 'MATCH',
-              value: dataRow.matchWithTarget(dataRow.targetColor).toStringAsFixed(2) + '%',
-            ),
-          ],
-        ),
-      )
-      .toList();
+  List<DataGridRow> get rows {
+    id = 0;
+    return colors
+        .map<DataGridRow>(
+          (dataRow) => DataGridRow(
+            cells: [
+              DataGridCell<String>(
+                columnName: 'ID',
+                value: (id++).toString(),
+              ),
+              DataGridCell<String>(
+                columnName: 'HEX',
+                value: dataRow.targetColor.toHexString(),
+              ),
+              DataGridCell<String>(
+                columnName: 'RED',
+                value: dataRow.colorCount(baseColorGenerator.getRed(type)).toString(),
+              ),
+              DataGridCell<String>(
+                columnName: 'YELLOW',
+                value: dataRow.colorCount(baseColorGenerator.getYellow(type)).toString(),
+              ),
+              DataGridCell<String>(
+                columnName: 'BLUE',
+                value: dataRow.colorCount(baseColorGenerator.getBlue(type)).toString(),
+              ),
+              DataGridCell<String>(
+                columnName: 'WHITE',
+                value: dataRow.colorCount(baseColorGenerator.getWhite(type)).toString(),
+              ),
+              DataGridCell<String>(
+                columnName: 'BLACK',
+                value: dataRow.colorCount(baseColorGenerator.getBlack(type)).toString(),
+              ),
+              DataGridCell<String>(
+                columnName: 'MATCH',
+                value: dataRow.matchWithTarget(dataRow.targetColor).toStringAsFixed(2) + '%',
+              ),
+            ],
+          ),
+        )
+        .toList();
+  }
 
   @override
   bool shouldRecalculateColumnWidths() {

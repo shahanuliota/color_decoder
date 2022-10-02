@@ -222,39 +222,39 @@ class _ColorPalateReverse {
       _setBestMatch(colorsList);
     } else {
       List<Color> tempBestMixerList = <Color>[];
-      for (int i = 0; i < baseColors.length; i++) {
-        Color color = baseColors[i];
-
-        /// mix and match
-        Color mixer = mixColors([...colorsList, color]);
-        double temp = mixer.match(targetColor);
-
-        if (temp >= maxMatch) {
-          maxMatch = temp;
-          tempBestMixerList = [...colorsList, color];
-        }
-
-        if (temp >= 100.0) {
-          _globalMaxMatch = 100.0;
-          _setBestMatch(colorsList);
-          return [...colorsList, color];
-        }
-      }
-
-      // BestMatchList addListModel = _addColorAndCheckMixers([...colorsList]);
+      // for (int i = 0; i < baseColors.length; i++) {
+      //   Color color = baseColors[i];
       //
-      // if (maxMatch < addListModel.match) {
-      //   maxMatch = addListModel.match;
-      //   tempBestMixerList = addListModel.colorsList;
-      // }
+      //   /// mix and match
+      //   Color mixer = mixColors([...colorsList, color]);
+      //   double temp = mixer.match(targetColor);
       //
-      // if (withDelete == true) {
-      //   BestMatchList deleteListModel = _deleteColorAndCheckMixers([...colorsList]);
-      //   if (maxMatch < deleteListModel.match) {
-      //     maxMatch = deleteListModel.match;
-      //     tempBestMixerList = deleteListModel.colorsList;
+      //   if (temp >= maxMatch) {
+      //     maxMatch = temp;
+      //     tempBestMixerList = [...colorsList, color];
+      //   }
+      //
+      //   if (temp >= 100.0) {
+      //     _globalMaxMatch = 100.0;
+      //     _setBestMatch(colorsList);
+      //     return [...colorsList, color];
       //   }
       // }
+
+      BestMatchList addListModel = _addColorAndCheckMixers([...colorsList]);
+
+      if (maxMatch < addListModel.match) {
+        maxMatch = addListModel.match;
+        tempBestMixerList = addListModel.colorsList;
+      }
+
+      if (withDelete == true) {
+        BestMatchList deleteListModel = _deleteColorAndCheckMixers([...colorsList]);
+        if (maxMatch < deleteListModel.match) {
+          maxMatch = deleteListModel.match;
+          tempBestMixerList = deleteListModel.colorsList;
+        }
+      }
 
       //print('_globalMaxMatch: $_globalMaxMatch : maxMatch: $maxMatch');
       if (maxMatch > _globalMaxMatch) {

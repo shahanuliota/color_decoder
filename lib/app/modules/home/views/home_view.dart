@@ -9,6 +9,7 @@ import '../../../../core/extensions/clickable_extensions.dart';
 import '../../../../core/extensions/color.decoder.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../data/color.generator.dart';
+import '../../../routes/app_pages.dart';
 import '../componenet/color.box.view.dart';
 import '../componenet/submit.button.view.dart';
 import '../controllers/home_controller.dart';
@@ -35,6 +36,15 @@ class HomeView extends GetResponsiveView<HomeController> {
         appBar: AppBar(
           title: Text('color blend'.toUpperCase()),
           centerTitle: true,
+          actions: [
+            TextButton(
+              onPressed: () {
+                Get.toNamed(Routes.UPLOAD_COLORS);
+              },
+              child: Text('upload page'),
+            ),
+            20.horizontalSpace,
+          ],
         ),
         body: SafeArea(
           child: Column(

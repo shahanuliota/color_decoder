@@ -4,10 +4,12 @@ class SubmitButton extends StatelessWidget {
   const SubmitButton({
     Key? key,
     this.onTap,
+    this.title = 'Submit',
     required this.focusNode,
   }) : super(key: key);
   final Function()? onTap;
   final FocusNode focusNode;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,8 @@ class SubmitButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(7),
           ),
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          child: const Text(
-            'Submit',
+          child: Text(
+            title,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

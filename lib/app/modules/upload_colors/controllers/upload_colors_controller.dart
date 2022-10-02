@@ -16,8 +16,11 @@ class UploadColorsController extends GetxController {
   List<ColorBase> baseColors = <ColorBase>[];
   BaseColorGenerator _colorGenerator = BaseColorGenerator();
 
+  RxBool isCompletedUpload = false.obs;
+
   Future<void> palateDecoder(List<Color> colors) async {
     try {
+      isCompletedUpload.value = false;
       DateTime start = DateTime.now();
       print(start.toString());
 
@@ -44,7 +47,10 @@ class UploadColorsController extends GetxController {
       update();
 
       print('time count => ${d.inMilliseconds} ms');
+
+      isCompletedUpload.value = true;
     } catch (e, t) {
+      isCompletedUpload.value = false;
       debugPrint(e.toString());
       debugPrint(t.toString());
     }
