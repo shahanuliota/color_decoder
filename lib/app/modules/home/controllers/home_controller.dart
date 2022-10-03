@@ -58,8 +58,12 @@ class HomeController extends GetxController {
   void switchBaseColors(int i) {
     if (i == 0) {
       baseColors = _colorGenerator.getCoolColors();
-    } else {
+    } else if (i == 1) {
       baseColors = _colorGenerator.getWarmColors();
+    } else if (i == 2) {
+      baseColors = _colorGenerator.getCoolColorsExtended();
+    } else if (i == 3) {
+      baseColors = _colorGenerator.getWarmColorsExtended();
     }
 
     update();

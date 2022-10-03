@@ -70,17 +70,19 @@ class HomeView extends GetResponsiveView<HomeController> {
               SizedBox(
                 height: 40,
                 child: ToggleSwitch(
-                  minWidth: 90.0,
+                  minWidth: 100.0,
                   initialLabelIndex: 0,
                   cornerRadius: 20.0,
                   activeFgColor: Colors.white,
                   inactiveBgColor: Colors.grey,
                   inactiveFgColor: Colors.white,
-                  totalSwitches: 2,
-                  labels: const ['Cool', 'Warm'],
+                  totalSwitches: 4,
+                  labels: const ['Cool', 'Warm', 'Cool-Purple', 'Warm-Purple'],
                   activeBgColors: const [
                     [Color(0xff00224c)],
-                    [Color(0xff9C0F48)]
+                    [Color(0xff9C0F48)],
+                    [Colors.purple],
+                    [Colors.purpleAccent],
                   ],
                   onToggle: (index) {
                     controller.switchBaseColors(index ?? 0);

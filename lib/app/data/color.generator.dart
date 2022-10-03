@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import '../../core/extensions/color.decoder.dart';
+
 class ColorBase {
   Color baseColor;
   String tag;
@@ -23,6 +25,26 @@ class BaseColorGenerator {
   final Color blueWarm = const Color(0xff00224C);
   final Color whiteWarm = const Color(0xffFFFFFF);
   final Color blackWarm = const Color(0xff21211a);
+
+  List<ColorBase> getCoolColorsExtended() {
+    return [
+      ...getCoolColors(),
+      ColorBase(
+        tag: 'purple',
+        baseColor: HexColor('4e3379'),
+      ),
+    ];
+  }
+
+  List<ColorBase> getWarmColorsExtended() {
+    return [
+      ...getWarmColors(),
+      ColorBase(
+        tag: 'purple',
+        baseColor: HexColor('4e3379'),
+      ),
+    ];
+  }
 
   List<ColorBase> getCoolColors() {
     List<ColorBase> coolColors = [
