@@ -21,6 +21,7 @@ dependencies:
   spreadsheet_decoder: ^2.0.0
   syncfusion_flutter_datagrid_export: ^20.3.47-beta
   open_file: ^3.2.1
+  percent_indicator: ^4.2.2
 
 dependency_overrides:
   ffi: ^1.0.0

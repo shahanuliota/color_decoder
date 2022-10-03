@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_datagrid_export/export.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' hide Column, Row;
@@ -61,9 +62,11 @@ class UploadColorsView extends GetView<UploadColorsController> {
                                       side: BorderSide(color: Colors.red)))),
                           onPressed: () async {
                             try {
+                              controller.isCompletedUpload.value = TaskStatus.started;
                               List<Color> colors = await ExcelToColors().pickAndGetColors();
                               controller.palateDecoder(colors);
                             } catch (e, t) {
+                              controller.isCompletedUpload.value = TaskStatus.failed;
                               print(e.toString());
                               print(t.toString());
                             }
@@ -71,15 +74,39 @@ class UploadColorsView extends GetView<UploadColorsController> {
                         ),
                       ),
                     ),
-                    Obx(() {
-                      return SubmitButton(
-                        focusNode: FocusNode(),
-                        title: 'EXPORT csv'.toUpperCase(),
-                        onTap: controller.isCompletedUpload.value == false
-                            ? null
-                            : () => _exportDataGridToExcel(),
-                      );
-                    }),
+                    Obx(
+                      () {
+                        if (controller.isCompletedUpload.value == TaskStatus.started) {
+                          return LinearPercentIndicator(
+                            // width: MediaQuery.of(context).size.width - 100,
+                            animation: false,
+                            lineHeight: 10.0,
+                            animationDuration: 2500,
+                            percent: controller.taskPercentage.value,
+                            center: Text(
+                              (controller.taskPercentage.value * 100.0).toStringAsFixed(3),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                              ),
+                            ),
+                            barRadius: Radius.circular(10),
+                            progressColor: Colors.green,
+                          );
+                        } else if (controller.isCompletedUpload.value == TaskStatus.completed) {
+                          return SubmitButton(
+                            activeColor: Colors.greenAccent,
+                            focusNode: FocusNode(),
+                            title: 'EXPORT csv'.toUpperCase(),
+                            onTap: _exportDataGridToExcel,
+                          );
+                        } else if (controller.isCompletedUpload.value == TaskStatus.failed) {
+                          return Text('file upload failed');
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),

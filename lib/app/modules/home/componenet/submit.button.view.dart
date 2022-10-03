@@ -6,15 +6,17 @@ class SubmitButton extends StatelessWidget {
     this.onTap,
     this.title = 'Submit',
     required this.focusNode,
+    this.activeColor = const Color(0xff00224c),
   }) : super(key: key);
   final Function()? onTap;
   final FocusNode focusNode;
   final String title;
+  final Color activeColor; // = Colors.white
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: onTap == null ? const Color(0xff21211a) : const Color(0xff00224c),
+      color: onTap == null ? const Color(0xff21211a) : activeColor,
       borderRadius: BorderRadius.circular(7),
       child: InkWell(
         focusNode: focusNode,
