@@ -37,11 +37,29 @@ class HomeView extends GetResponsiveView<HomeController> {
           title: Text('color blend'.toUpperCase()),
           centerTitle: true,
           actions: [
-            TextButton(
-              onPressed: () {
-                Get.toNamed(Routes.UPLOAD_COLORS);
-              },
-              child: Text('upload page'),
+            SizedBox(
+              width: 200,
+              height: 50,
+              child: Center(
+                child: Material(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.circular(15),
+                  child: InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.UPLOAD_COLORS);
+                    },
+                    borderRadius: BorderRadius.circular(15),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                      child: Text(
+                        'BULK UPLOAD',
+                        style: TextStyle(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
             20.horizontalSpace,
           ],
