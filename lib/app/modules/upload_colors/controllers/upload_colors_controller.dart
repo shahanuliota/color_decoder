@@ -24,20 +24,28 @@ class UploadColorsController extends GetxController {
       DateTime start = DateTime.now();
       print(start.toString());
 
+      List<Color> coolBaseColors = _colorGenerator.getCoolColors().map((e) => e.baseColor).toList();
+      List<Color> warmBaseColors = _colorGenerator.getWarmColors().map((e) => e.baseColor).toList();
+
       for (int i = 0; i < colors.length; i++) {
         Color color = colors[i];
+        if (i > 10) continue;
         print(color.toHexString() + ' ' + i.toString());
-        ColorDecoderDto dto = ColorDecoderDto(
-          structure: _colorGenerator.getCoolColors().map((e) => e.baseColor).toList(),
+
+        ColorDecoderDto warmDto = ColorDecoderDto(
+          structure: warmBaseColors,
           hex: color,
         );
-        ColorDataModel data = await _colorDecoderRepository.getColorDecoder(dto);
-        colorsDataModel.add(ColorPalletMixer(targetColor: color, result: data));
+        ColorDataModel warmData = await _colorDecoderRepository.getColorDecoder(warmDto);
+        warmColorsDataModel.add(ColorPalletMixer(targetColor: color, result: warmData));
+
+        ColorDecoderDto coolDto = ColorDecoderDto(
+          structure: coolBaseColors,
+          hex: color,
+        );
+        ColorDataModel coolData = await _colorDecoderRepository.getColorDecoder(coolDto);
+        coolColorsDataModel.add(ColorPalletMixer(targetColor: color, result: coolData));
         update(['table']);
-        if (i % 100 == 0) {
-          update(['table']);
-          await 50.milliseconds.delay();
-        }
       }
 
       DateTime end = DateTime.now();
@@ -56,7 +64,8 @@ class UploadColorsController extends GetxController {
     }
   }
 
-  List<ColorPalletMixer> colorsDataModel = <ColorPalletMixer>[].obs;
+  List<ColorPalletMixer> coolColorsDataModel = <ColorPalletMixer>[].obs;
+  List<ColorPalletMixer> warmColorsDataModel = <ColorPalletMixer>[].obs;
 }
 
 class ColorPalletMixer {

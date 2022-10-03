@@ -77,7 +77,7 @@ class UploadColorsView extends GetView<UploadColorsController> {
                         title: 'EXPORT csv'.toUpperCase(),
                         onTap: controller.isCompletedUpload.value == false
                             ? null
-                            : _exportDataGridToExcel,
+                            : () => _exportDataGridToExcel(),
                       );
                     }),
                   ],
@@ -87,19 +87,20 @@ class UploadColorsView extends GetView<UploadColorsController> {
               Expanded(
                 child: Center(
                   child: SizedBox(
-                    width: min(Get.width, 1000),
+                    // width: min(Get.width, 1000),
                     child: GetBuilder<UploadColorsController>(
                       id: 'table',
                       builder: (logic) {
                         return SfDataGrid(
                           key: _key,
                           controller: _controller,
-                          source:
-                              ColorDataSource(colors: logic.colorsDataModel, type: ColorType.cool),
+                          source: ColorDataSource(
+                            coolColors: logic.coolColorsDataModel,
+                            warmColors: logic.warmColorsDataModel,
+                          ),
                           columns: <GridColumn>[
                             GridColumn(
-                              columnWidthMode: ColumnWidthMode.fill,
-                              columnName: 'ID',
+                              columnName: 'ID-COOL',
                               label: Container(
                                 padding: const EdgeInsets.all(16.0),
                                 alignment: Alignment.center,
@@ -115,12 +116,12 @@ class UploadColorsView extends GetView<UploadColorsController> {
                             ),
                             GridColumn(
                               columnWidthMode: ColumnWidthMode.fill,
-                              columnName: 'HEX',
+                              columnName: 'HEX-COOL',
                               label: Container(
                                 padding: const EdgeInsets.all(16.0),
                                 alignment: Alignment.center,
                                 child: const Text(
-                                  'COLOR',
+                                  'COLOR-COOL',
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.white,
@@ -130,13 +131,12 @@ class UploadColorsView extends GetView<UploadColorsController> {
                               ),
                             ),
                             GridColumn(
-                              columnWidthMode: ColumnWidthMode.auto,
-                              columnName: 'RED',
+                              columnName: 'RED-COOL',
                               label: Container(
                                 padding: const EdgeInsets.all(16.0),
                                 alignment: Alignment.center,
                                 child: const Text(
-                                  'RED',
+                                  'RED-COOL',
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.white,
@@ -146,8 +146,7 @@ class UploadColorsView extends GetView<UploadColorsController> {
                               ),
                             ),
                             GridColumn(
-                              columnWidthMode: ColumnWidthMode.auto,
-                              columnName: 'YELLOW',
+                              columnName: 'YELLOW-COOL',
                               label: Container(
                                 padding: const EdgeInsets.all(16.0),
                                 alignment: Alignment.center,
@@ -162,8 +161,8 @@ class UploadColorsView extends GetView<UploadColorsController> {
                               ),
                             ),
                             GridColumn(
-                              columnWidthMode: ColumnWidthMode.auto,
-                              columnName: 'BLUE',
+                              columnWidthMode: ColumnWidthMode.none,
+                              columnName: 'BLUE-COOL',
                               label: Container(
                                 padding: const EdgeInsets.all(16.0),
                                 alignment: Alignment.center,
@@ -178,8 +177,8 @@ class UploadColorsView extends GetView<UploadColorsController> {
                               ),
                             ),
                             GridColumn(
-                              columnWidthMode: ColumnWidthMode.auto,
-                              columnName: 'WHITE',
+                              columnWidthMode: ColumnWidthMode.none,
+                              columnName: 'WHITE-COOL',
                               label: Container(
                                 padding: const EdgeInsets.all(16.0),
                                 alignment: Alignment.center,
@@ -194,8 +193,8 @@ class UploadColorsView extends GetView<UploadColorsController> {
                               ),
                             ),
                             GridColumn(
-                              columnWidthMode: ColumnWidthMode.auto,
-                              columnName: 'BLACK',
+                              columnWidthMode: ColumnWidthMode.none,
+                              columnName: 'BLACK-COOL',
                               label: Container(
                                 padding: const EdgeInsets.all(16.0),
                                 alignment: Alignment.center,
@@ -211,7 +210,135 @@ class UploadColorsView extends GetView<UploadColorsController> {
                             ),
                             GridColumn(
                               columnWidthMode: ColumnWidthMode.auto,
-                              columnName: 'MATCH',
+                              columnName: 'MATCH-COOL',
+                              label: Container(
+                                padding: const EdgeInsets.all(16.0),
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  'MATCH',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            // GridColumn(
+                            //   columnWidthMode: ColumnWidthMode.fill,
+                            //   columnName: 'ID-WARM',
+                            //   label: Container(
+                            //     padding: const EdgeInsets.all(16.0),
+                            //     alignment: Alignment.center,
+                            //     child: const Text(
+                            //       'ID',
+                            //       style: TextStyle(
+                            //         fontSize: 14,
+                            //         color: Colors.white,
+                            //         fontWeight: FontWeight.bold,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                            GridColumn(
+                              columnWidthMode: ColumnWidthMode.fill,
+                              columnName: 'HEX-WARM',
+                              label: Container(
+                                padding: const EdgeInsets.all(16.0),
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  'COLOR-WARM',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GridColumn(
+                              columnWidthMode: ColumnWidthMode.none,
+                              columnName: 'RED-WARM',
+                              label: Container(
+                                padding: const EdgeInsets.all(16.0),
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  'RED',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GridColumn(
+                              columnWidthMode: ColumnWidthMode.none,
+                              columnName: 'YELLOW-WARM',
+                              label: Container(
+                                padding: const EdgeInsets.all(16.0),
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  'YELLOW',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GridColumn(
+                              columnWidthMode: ColumnWidthMode.none,
+                              columnName: 'BLUE-WARM',
+                              label: Container(
+                                padding: const EdgeInsets.all(16.0),
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  'BLUE',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GridColumn(
+                              columnWidthMode: ColumnWidthMode.auto,
+                              columnName: 'WHITE-WARM',
+                              label: Container(
+                                padding: const EdgeInsets.all(16.0),
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  'WHITE',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GridColumn(
+                              columnWidthMode: ColumnWidthMode.auto,
+                              columnName: 'BLACK-WARM',
+                              label: Container(
+                                padding: const EdgeInsets.all(16.0),
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  'BLACK',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GridColumn(
+                              columnWidthMode: ColumnWidthMode.auto,
+                              columnName: 'MATCH-WARM',
                               label: Container(
                                 padding: const EdgeInsets.all(16.0),
                                 alignment: Alignment.center,
@@ -242,56 +369,97 @@ class UploadColorsView extends GetView<UploadColorsController> {
 }
 
 class ColorDataSource extends DataGridSource {
-  ColorDataSource({required this.colors, required this.type});
+  ColorDataSource({
+    required this.coolColors,
+    required this.warmColors,
+  });
 
-  final List<ColorPalletMixer> colors;
-  final ColorType type;
+  final List<ColorPalletMixer> coolColors;
+  final List<ColorPalletMixer> warmColors;
+
   final BaseColorGenerator baseColorGenerator = BaseColorGenerator();
   int id = 0;
 
   @override
   List<DataGridRow> get rows {
     id = 0;
-    return colors
-        .map<DataGridRow>(
-          (dataRow) => DataGridRow(
-            cells: [
-              DataGridCell<String>(
-                columnName: 'ID',
-                value: (id++).toString(),
-              ),
-              DataGridCell<String>(
-                columnName: 'HEX',
-                value: dataRow.targetColor.toHexString(),
-              ),
-              DataGridCell<String>(
-                columnName: 'RED',
-                value: dataRow.colorCount(baseColorGenerator.getRed(type)).toString(),
-              ),
-              DataGridCell<String>(
-                columnName: 'YELLOW',
-                value: dataRow.colorCount(baseColorGenerator.getYellow(type)).toString(),
-              ),
-              DataGridCell<String>(
-                columnName: 'BLUE',
-                value: dataRow.colorCount(baseColorGenerator.getBlue(type)).toString(),
-              ),
-              DataGridCell<String>(
-                columnName: 'WHITE',
-                value: dataRow.colorCount(baseColorGenerator.getWhite(type)).toString(),
-              ),
-              DataGridCell<String>(
-                columnName: 'BLACK',
-                value: dataRow.colorCount(baseColorGenerator.getBlack(type)).toString(),
-              ),
-              DataGridCell<String>(
-                columnName: 'MATCH',
-                value: dataRow.matchWithTarget(dataRow.targetColor).toStringAsFixed(2) + '%',
-              ),
-            ],
+    List<DataGridRow> rows = <DataGridRow>[];
+
+    for (int i = 0; i < coolColors.length; i++) {
+      var dataRow = coolColors[i];
+      var warmRow = warmColors[i];
+      var d = DataGridRow(
+        cells: [
+          DataGridCell<String>(
+            columnName: 'ID-COOL',
+            value: (id++).toString(),
           ),
-        )
-        .toList();
+          DataGridCell<String>(
+            columnName: 'HEX-COOL',
+            value: dataRow.targetColor.toHexString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'RED-COOL',
+            value: dataRow.colorCount(baseColorGenerator.getRed(ColorType.cool)).toString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'YELLOW-COOL',
+            value: dataRow.colorCount(baseColorGenerator.getYellow(ColorType.cool)).toString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'BLUE-COOL',
+            value: dataRow.colorCount(baseColorGenerator.getBlue(ColorType.cool)).toString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'WHITE-COOL',
+            value: dataRow.colorCount(baseColorGenerator.getWhite(ColorType.cool)).toString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'BLACK-COOL',
+            value: dataRow.colorCount(baseColorGenerator.getBlack(ColorType.cool)).toString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'MATCH-COOL',
+            value: dataRow.matchWithTarget(dataRow.targetColor).toStringAsFixed(2) + '%',
+          ),
+
+          /// warm rows
+          DataGridCell<String>(
+            columnName: 'HEX-WARM',
+            value: warmRow.targetColor.toHexString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'RED-WARM',
+            value: warmRow.colorCount(baseColorGenerator.getRed(ColorType.warm)).toString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'YELLOW-WARM',
+            value: warmRow.colorCount(baseColorGenerator.getYellow(ColorType.warm)).toString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'BLUE-WARM',
+            value: warmRow.colorCount(baseColorGenerator.getBlue(ColorType.warm)).toString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'WHITE-WARM',
+            value: warmRow.colorCount(baseColorGenerator.getWhite(ColorType.warm)).toString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'BLACK-WARM',
+            value: warmRow.colorCount(baseColorGenerator.getBlack(ColorType.warm)).toString(),
+          ),
+          DataGridCell<String>(
+            columnName: 'MATCH-WARM',
+            value: warmRow.matchWithTarget(warmRow.targetColor).toStringAsFixed(2) + '%',
+          ),
+        ],
+      );
+
+      rows.add(d);
+    }
+
+    print(' id $id: rows: ${rows.length}');
+    return rows;
   }
 
   @override
@@ -303,7 +471,7 @@ class ColorDataSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
       cells: row.getCells().map<Widget>((dataCell) {
-        if (dataCell.columnName == 'HEX') {
+        if (dataCell.columnName == 'HEX-WARM' || dataCell.columnName == 'HEX-COOL') {
           return Container(
             color: HexColor(dataCell.value),
             child: Center(
