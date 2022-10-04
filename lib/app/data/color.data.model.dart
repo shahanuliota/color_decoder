@@ -69,8 +69,8 @@ class NormalizedColorData extends ColorDataModel {
 
   Map<String, int> get normalizedStep1 => _normalizedStep1;
 
-  Map<String, int> get normalizedStep2 => _normalizedStep2;
-
+  @override
+  Map<String, int> get colorCounterMap => _normalizedStep2;
   @override
   int colorCnt(Color c) {
     return _normalizedStep3[c.toHexString()] ?? 0;
@@ -142,6 +142,12 @@ class NormalizedColorData extends ColorDataModel {
 
     int round = (max / 10).round();
     return (colorNo / round).round();
+  }
+
+  void normalized() {
+    step1();
+    step2();
+    step3();
   }
 
   void step3() {

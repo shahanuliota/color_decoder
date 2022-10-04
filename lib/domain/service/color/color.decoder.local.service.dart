@@ -20,11 +20,9 @@ class ColorDecoderLocalService extends IColorDecoderService {
         model.addColor(c);
       }
 
-      model.step1();
-      model.step2();
-      model.step3();
+      model.normalized();
 
-      for (String key in model.normalizedStep2.keys) {
+      for (String key in model.colorCounterMap.keys) {
         // print('$key => ${model.getPercent(HexColor(key))}');
         ColorData v = ColorData(
           hex: key,
