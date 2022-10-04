@@ -79,7 +79,7 @@ class NormalizedColorData extends ColorDataModel {
   int _stepTwoCalculate(int colorNo) {
     if (colorNo == 0) return 0;
 
-    print('----------------------Start 2------$colorNo--------------------------------');
+    // print('----------------------Start 2------$colorNo--------------------------------');
     int countZero = 1;
     int minValue = 999999999;
 
@@ -95,14 +95,14 @@ class NormalizedColorData extends ColorDataModel {
       }
     }
 
-    print('countZero $countZero');
-    print('minValue $minValue');
+    // print('countZero $countZero');
+    // print('minValue $minValue');
 
     int small = min(countZero, minValue);
-    print('small $small');
+    // print('small $small');
 
-    print('colorNo ~/ small :=> ${colorNo}/$small = ${(colorNo / small)}');
-    print('--------------------------End  2----------------------------------');
+    // print('colorNo ~/ small :=> ${colorNo}/$small = ${(colorNo / small)}');
+    // print('--------------------------End  2----------------------------------');
     return (colorNo / small).round();
   }
 
