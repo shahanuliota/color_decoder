@@ -22,9 +22,9 @@ class ColorDecoderRepository extends IColorDecoderRepository {
 
       //print('repository: $res');
       ColorDataModel model = ColorDataModel();
-      res.structure.forEach(
-        (key, value) {},
-      );
+      // res.structure.forEach(
+      //   (key, value) {},
+      // );
 
       for (var key in res.structure.keys) {
         var value = res.structure[key];

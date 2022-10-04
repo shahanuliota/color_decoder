@@ -15,11 +15,16 @@ class ColorDecoderLocalService extends IColorDecoderService {
           ColorPalateReverse(baseColors: dto.structure, targetColor: dto.hex);
       List<Color> list = reverser.reverse(<Color>[]);
       Map<String, ColorData> structure = <String, ColorData>{};
-      ColorDataModel model = ColorDataModel();
+      NormalizedColorData model = NormalizedColorData(baseColors: dto.structure);
       for (var c in list) {
         model.addColor(c);
       }
-      for (String key in model.colorCounterMap.keys) {
+
+      model.step1();
+      model.step2();
+      model.step3();
+
+      for (String key in model.normalizedStep2.keys) {
         // print('$key => ${model.getPercent(HexColor(key))}');
         ColorData v = ColorData(
           hex: key,
