@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:spreadsheet_decoder/spreadsheet_decoder.dart';
 
 import '../extensions/color.decoder.dart';
+import 'color.decompile.dart';
 
 class ExcelToColors {
   Future<List<Color>> pickAndGetColors() async {

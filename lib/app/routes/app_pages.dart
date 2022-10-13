@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/color_picker_pallet/bindings/color_picker_pallet_binding.dart';
+import '../modules/color_picker_pallet/views/color_picker_pallet_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/upload_colors/bindings/upload_colors_binding.dart';
@@ -10,7 +12,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.COLOR_PICKER_PALLET;
 
   static final routes = [
     GetPage(
@@ -22,6 +24,11 @@ class AppPages {
       name: _Paths.UPLOAD_COLORS,
       page: () => UploadColorsView(),
       binding: UploadColorsBinding(),
+    ),
+    GetPage(
+      name: _Paths.COLOR_PICKER_PALLET,
+      page: () => ColorPickerPalletView(),
+      binding: ColorPickerPalletBinding(),
     ),
   ];
 }

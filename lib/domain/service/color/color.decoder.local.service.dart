@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import '../../../app/data/color.data.model.dart';
-import '../../../core/extensions/color.decoder.dart';
 import '../../../core/utils/colod.palate-reverser.dart';
+import '../../../core/utils/color.decompile.dart';
 import '../interface/color.service.interface.dart';
 import 'dto/color.decoder.dto.dart';
 import 'response/color_decoder.response.model.dart';
@@ -16,6 +16,8 @@ class ColorDecoderLocalService extends IColorDecoderService {
       List<Color> list = reverser.reverse(<Color>[]);
       Map<String, ColorData> structure = <String, ColorData>{};
       NormalizedColorData model = NormalizedColorData(baseColors: dto.structure);
+      // ColorDataModel model = ColorDataModel();
+
       for (var c in list) {
         model.addColor(c);
       }

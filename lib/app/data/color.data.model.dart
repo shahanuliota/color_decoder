@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'dart:ui';
 
 import '../../core/extensions/color.decoder.dart';
@@ -71,6 +70,7 @@ class NormalizedColorData extends ColorDataModel {
 
   @override
   Map<String, int> get colorCounterMap => _normalizedStep2;
+
   @override
   int colorCnt(Color c) {
     return _normalizedStep3[c.toHexString()] ?? 0;
@@ -80,30 +80,29 @@ class NormalizedColorData extends ColorDataModel {
     if (colorNo == 0) return 0;
 
     // print('----------------------Start 2------$colorNo--------------------------------');
-    int countZero = 1;
-    int minValue = 999999999;
+    int countZero = 0;
+
+    List<int> list = <int>[];
 
     for (int i = 0; i < baseColors.length; i++) {
       Color color = baseColors[i];
 
       int count = _normalizedStep1[color.toHexString()] ?? 0;
+      list.add(count);
 
       if (count == 0) {
         countZero++;
-      } else if (count < minValue) {
-        minValue = count;
       }
     }
 
-    // print('countZero $countZero');
-    // print('minValue $minValue');
-
-    int small = min(countZero, minValue);
-    // print('small $small');
-
-    // print('colorNo ~/ small :=> ${colorNo}/$small = ${(colorNo / small)}');
-    // print('--------------------------End  2----------------------------------');
+    int small = SMALL(list, countZero);
     return (colorNo / small).round();
+  }
+
+  int SMALL(List<int> list, int kth) {
+    list.sort();
+    // print('small kth: $kth value: ${list[kth]}');
+    return list[kth];
   }
 
   void step1() {
@@ -152,7 +151,6 @@ class NormalizedColorData extends ColorDataModel {
 
   void step3() {
     int max = 0;
-
     for (int i = 0; i < baseColors.length; i++) {
       Color color = baseColors[i];
       int count = _normalizedStep2[color.toHexString()] ?? 0;

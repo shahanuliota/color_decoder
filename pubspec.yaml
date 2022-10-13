@@ -22,6 +22,7 @@ dependencies:
   syncfusion_flutter_datagrid_export: ^20.3.47-beta
   open_file: ^3.2.1
   percent_indicator: ^4.2.2
+  image_pixels: ^3.0.0
 
 dependency_overrides:
   ffi: ^1.0.0
@@ -33,4 +34,7 @@ dev_dependencies:
 
 flutter: 
   uses-material-design: true
+  assets:
+    - assets/Soft Summer horizontal.png
+
 

@@ -8,6 +8,7 @@ import 'package:toggle_switch/toggle_switch.dart';
 import '../../../../core/extensions/clickable_extensions.dart';
 import '../../../../core/extensions/color.decoder.dart';
 import '../../../../core/extensions/extensions.dart';
+import '../../../../core/utils/color.decompile.dart';
 import '../../../data/color.generator.dart';
 import '../../../routes/app_pages.dart';
 import '../componenet/color.box.view.dart';

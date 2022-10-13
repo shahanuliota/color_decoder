@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import '../../core/extensions/color.decoder.dart';
+import '../../core/utils/color.decompile.dart';
 
 class ColorBase {
   Color baseColor;

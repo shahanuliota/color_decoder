@@ -1,40 +1,18 @@
 import 'package:color_decoder/app/data/color.data.model.dart';
 import 'package:color_decoder/core/extensions/color.decoder.dart';
 import 'package:color_decoder/core/utils/colod.palate-reverser.dart';
+import 'package:color_decoder/core/utils/color.decompile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('color', () async {
-    Color redCool = const Color(0xff890041);
-    Color yellowCool = const Color(0xffFFCE51);
-    Color blue = const Color(0xff00224C);
-    Color white = const Color(0xffFFFFFF);
-    Color black = const Color(0xff21211A);
-    Color targetColor = const Color(0xff83504A);
-
-    List<Color> mixerList = [yellowCool, redCool, blue];
-
-    Color mix = mixColors(mixerList);
-
-    colorPrint(redCool, name: 'Red');
-    colorPrint(yellowCool, name: 'Yellow');
-    colorPrint(blue, name: 'blue');
-    colorPrint(mix, name: 'mix');
-    print(mix == targetColor);
-    print(mix.value);
-
-    var p = const Color(0xffABC453).match(const Color(0xffFFCE51));
-    print(p);
-
-    print(blue.value.toRadixString(16).padLeft(8, '0'));
-
-    print(Colors.transparent.match(targetColor).toStringAsFixed(2));
-    expect(true, true);
-  });
-
   test('reverse from palate', () {
     Color redCool = const Color(0xffc40d20);
+
+    HexColor res = HexColor('c40d20');
+
+    print(res == redCool);
+
     Color yellowCool = const Color(0xffffcc00);
     Color blue = const Color(0xff00224c);
     Color white = const Color(0xffffffff);
@@ -113,6 +91,47 @@ void main() {
     Color black = const Color(0xff21211a);
 
     List<Color> mixerList = [redCool, yellowCool, blue, white, black];
+  });
+
+  test('color', () async {
+    Color redCool = const Color(0xff890041);
+    Color blue = const Color(0xff00224C);
+    print(' colors ');
+    print(redCool.alpha);
+    print(redCool.toRGBString());
+    print(redCool.alpha == 0x00);
+    print(redCool.value);
+    print(redCool + (blue));
+    print(('blue.alpha'));
+    print((blue.alpha));
+    print((0x00));
+    print(Color.alphaBlend(redCool, blue));
+    print(redCool.computeLuminance());
+    print(10 ~/ 3.5);
+    Color yellowCool = const Color(0xffFFCE51);
+
+    Color white = const Color(0xffFFFFFF);
+    Color black = const Color(0xff21211A);
+    Color targetColor = const Color(0xff83504A);
+
+    List<Color> mixerList = [yellowCool, redCool, blue];
+
+    Color mix = mixColors(mixerList);
+
+    colorPrint(redCool, name: 'Red');
+    colorPrint(yellowCool, name: 'Yellow');
+    colorPrint(blue, name: 'blue');
+    colorPrint(mix, name: 'mix');
+    print(mix == targetColor);
+    print(mix.value);
+
+    var p = const Color(0xffABC453).match(const Color(0xffFFCE51));
+    print(p);
+
+    print(blue.value.toRadixString(16).padLeft(8, '0'));
+
+    print(Colors.transparent.match(targetColor).toStringAsFixed(2));
+    expect(true, true);
   });
 }
 
